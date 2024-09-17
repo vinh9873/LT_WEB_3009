@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
+  <servlet>
+    <description></description>
+    <display-name>HelloConTrollers</display-name>
+    <servlet-name>HelloConTrollers</servlet-name>
+    <servlet-class>vn.ute.controllers.HelloConTrollers</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloConTrollers</servlet-name>
+    <url-pattern>/HelloConTrollers</url-pattern>
+  </servlet-mapping>
+  <display-name>HelloConTrollers</display-name>
+  <servlet>
+    <description></description>
+    <display-name>loginHelloWords</display-name>
+    <servlet-name>loginHelloWords</servlet-name>
+    <servlet-class>vn.ute.controllers.loginHelloWords</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginHelloWords</servlet-name>
+    <url-pattern>/loginHelloWords</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
