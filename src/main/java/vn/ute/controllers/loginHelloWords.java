@@ -82,5 +82,3 @@ public class loginHelloWords extends HttpServlet {
 		}
 
 }
-
-

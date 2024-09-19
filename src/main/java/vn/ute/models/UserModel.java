@@ -3,6 +3,7 @@ package vn.ute.models;
 import java.io.Serializable;
 import java.sql.Date;
 
+@SuppressWarnings("serial")
 public class UserModel implements Serializable {
 
 	
@@ -117,7 +118,17 @@ public class UserModel implements Serializable {
 				+ ", createDate=" + createDate + "]";
 	}
 
-	
+	public UserModel( String username, String password, String images, String fullname, String email,String phone, int roleid, Date createDate) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.images = images;
+		this.fullname = fullname;
+		this.email = email;
+		this.phone = phone;
+		this.roleid = roleid;
+		this.createDate = createDate;
+	}
 	
 
 }
