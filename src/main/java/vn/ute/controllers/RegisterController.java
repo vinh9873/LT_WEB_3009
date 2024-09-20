@@ -35,7 +35,7 @@ public class RegisterController extends HttpServlet {
 				}
 			}
 		}
-		req.getRequestDispatcher(Constant.REGISTER).forward(req, resp);
+		req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
 	}
 
 	@SuppressWarnings("static-access")
@@ -45,21 +45,21 @@ public class RegisterController extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		String fullname = req.getParameter("fullname");
 		String email = req.getParameter("email");
+		String fullname = req.getParameter("fullname");
 		String phone = req.getParameter("phone");
 		IUserService service = new UserService();
 		String alertMsg = "";
 		if (service.checkExistEmail(email)) {
 			alertMsg = "Email đã tồn tại!";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher(Constant.REGISTER).forward(req, resp);
+			req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
 			return;
 		}
 		if (service.checkExistUsername(username)) {
 			alertMsg = "Tài khoản đã tồn tại!";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher(Constant.REGISTER).forward(req, resp);
+			req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
 			return;
 		}
 		boolean isSuccess = service.register(username, password, email, fullname, phone);
@@ -71,7 +71,7 @@ public class RegisterController extends HttpServlet {
 		} else {
 			alertMsg = "System error!";
 			req.setAttribute("alert", alertMsg);
-			req.getRequestDispatcher(Constant.REGISTER).forward(req, resp);
+			req.getRequestDispatcher(Constant.Path.REGISTER).forward(req, resp);
 		}
 	}
 }
