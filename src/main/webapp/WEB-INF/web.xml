@@ -50,4 +50,14 @@
     <servlet-name>forgotPassword</servlet-name>
     <url-pattern>/forgotPassword</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>logoutController</display-name>
+    <servlet-name>logoutController</servlet-name>
+    <servlet-class>vn.ute.controllers.logoutController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>logoutController</servlet-name>
+    <url-pattern>/logoutController</url-pattern>
+  </servlet-mapping>
 </web-app>
