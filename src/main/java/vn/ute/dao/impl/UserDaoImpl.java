@@ -73,13 +73,13 @@ public class UserDaoImpl extends DBConnectSQLServer implements IUserDao {
 
 			conn = new DBConnectSQLServer().getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, user.getUsername());
-			ps.setString(2, user.getPassword());
-			ps.setString(3, user.getImages());
-			ps.setString(4, user.getFullname());
-			ps.setString(5, user.getEmail());
-			ps.setString(6, user.getPhone());
-			ps.setInt(7, user.getRoleid());
+			ps.setString(1, user.getEmail());
+			ps.setString(2, user.getUsername());
+			ps.setString(3, user.getFullname());
+			ps.setString(4, user.getPassword());
+			ps.setString(5, user.getImages());
+			ps.setInt(6, user.getRoleid());
+			ps.setString(7, user.getPhone());
 			ps.setDate(8, user.getCreateDate());
 			ps.executeUpdate();
 
@@ -91,61 +91,12 @@ public class UserDaoImpl extends DBConnectSQLServer implements IUserDao {
 	}
 
 	public static void main(String[] args) {
-		IUserDao userDao = new UserDaoImpl();
-
-		// Test findAll method
 		try {
+			IUserDao userDao = new UserDaoImpl();
 			System.out.println(userDao.findAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// Test findByUserName method
-		try {
-			System.out.println(userDao.findByUserName("vinhnq"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Test findById method
-		try {
-			System.out.println(userDao.findById(1));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Test insert method
-		UserModel insertUser = new UserModel();
-		insertUser.setUsername("quocvn");
-		insertUser.setPassword("12345");
-		insertUser.setImages("NULL");
-		insertUser.setFullname("Quoc Vinh");
-		insertUser.setEmail("vinhnq@gmail.com");
-		insertUser.setPhone("0123456789");
-		insertUser.setRoleid(3);
-		insertUser.setCreateDate(new java.sql.Date(System.currentTimeMillis())); // Sets current date
-
-		userDao.insert(insertUser);
-
-		// Check insert data in SQLServer
-		UserModel dataInsertedUser = userDao.findByUserName("quocvn");
-		if (dataInsertedUser != null) {
-			System.out.println("Chèn thành công!");
-			System.out.println(dataInsertedUser);
-		} else {
-			System.out.println("Chèn thất bại!");
-		}
-		String emailToCheck = "vinhnq@gmail.com";
-		String usernameToCheck = "quocvn";
-		String phoneToCheck = "0123456789";
-
-		boolean emailEx = userDao.checkExistEmail(emailToCheck);
-		boolean usernameEx = userDao.checkExistUsername(usernameToCheck);
-		boolean phoneEx = userDao.checkExistPhone(phoneToCheck);
-
-		System.out.println("Checked Email: " + emailEx);
-		System.out.println("Checked Username: " + usernameEx);
-		System.out.println("Checked Phone: " + phoneEx);
 	}
 
 	@Override
@@ -216,20 +167,7 @@ public class UserDaoImpl extends DBConnectSQLServer implements IUserDao {
 
 	@Override
 	public boolean checkExistPhone(String phone) {
-		boolean exist = false;
-		String query = "select * from users where phone = ?";
-		try {
-			conn = new DBConnectSQLServer().getConnection();
-			ps = conn.prepareStatement(query);
-			ps.setString(1, phone);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				exist = true;
-			}
-			ps.close();
-			conn.close();
-		} catch (Exception ex) {
-		}
-		return exist;
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

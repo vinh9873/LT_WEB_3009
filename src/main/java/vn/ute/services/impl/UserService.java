@@ -55,5 +55,4 @@ public class UserService implements IUserService {
 		return userDao.checkExistPhone(phone);
 	}
 
-
 }
