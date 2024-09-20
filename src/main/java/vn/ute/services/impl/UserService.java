@@ -4,6 +4,7 @@ import vn.ute.dao.IUserDao;
 import vn.ute.dao.impl.UserDaoImpl;
 import vn.ute.models.UserModel;
 import vn.ute.services.IUserService;
+import vn.ute.utils.PasswordUtils;
 
 public class UserService implements IUserService {
 
@@ -54,5 +55,15 @@ public class UserService implements IUserService {
 	public boolean checkExistPhone(String phone) {
 		return userDao.checkExistPhone(phone);
 	}
+	
+	@Override
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+		
+        // Mã hóa mật khẩu mới trước khi lưu
+        String hashedPassword = PasswordUtils.hashPassword(newPassword);
+
+        // Gọi phương thức từ UserDao để cập nhật mật khẩu
+        return userDao.updatePasswordByEmail(email, hashedPassword);
+    }
 
 }

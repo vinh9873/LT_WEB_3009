@@ -224,4 +224,19 @@ public class UserDaoImpl extends DBConnectSQLServer implements IUserDao {
 		}
 		return exist;
 	}
+	
+	@Override
+    public boolean updatePasswordByEmail(String email, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE email = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
