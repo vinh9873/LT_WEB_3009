@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class loginHelloWords
  */
-@WebServlet(urlPatterns = { "/login" })
+@WebServlet(urlPatterns =  "/login" )
 public class loginHelloWords extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// Lấy toàn bộ hàm trong service.

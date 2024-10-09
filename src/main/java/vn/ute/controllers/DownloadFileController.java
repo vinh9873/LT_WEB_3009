@@ -3,6 +3,7 @@ package vn.ute.controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.apache.commons.io.IOUtils;
 
@@ -21,10 +22,32 @@ public class DownloadFileController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String fileName = req.getParameter("fname");
-		File file = new File(Constant.DIR + "/" + fileName);
-		resp.setContentType("image/jpeg");
-		if (file.exists()) {
-			IOUtils.copy(new FileInputStream(file), resp.getOutputStream());
+		File file = new File(Constant.UPLOAD_DIRECTORY + "/" + fileName);
+		
+		if (!file.exists()) {
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND, "File not found");
+			return;
+		}
+
+		// Thiết lập kiểu MIME từ tệp
+		String mimeType = Files.probeContentType(file.toPath());
+		if (mimeType == null) {
+			// Nếu không xác định được MIME type, mặc định là binary stream
+			mimeType = "application/octet-stream";
+		}
+		resp.setContentType(mimeType);
+		
+		// Thiết lập Content-Length để truyền kích thước tệp
+		resp.setContentLengthLong(file.length());
+
+		// Thêm header hỗ trợ caching
+		resp.setHeader("Cache-Control", "public, max-age=3600");  // Caching trong 1 giờ
+
+		// Đảm bảo đóng luồng dữ liệu sau khi sử dụng
+		try (FileInputStream fis = new FileInputStream(file)) {
+			IOUtils.copy(fis, resp.getOutputStream());
+		} catch (IOException e) {
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error reading file");
 		}
 	}
 }
