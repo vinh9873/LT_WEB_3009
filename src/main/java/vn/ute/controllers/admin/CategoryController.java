@@ -78,7 +78,7 @@ public class CategoryController extends HttpServlet {
 			File uploadDir = new File(uploadPath);
 			if(uploadDir.exists()) {
 				uploadDir.mkdir();
-			}try {
+			} try {
 				Part part = req.getPart("images");
 				if(part.getSize()>0) {
 					String filename=Paths.get(part.getSubmittedFileName()).getFileName().toString();
@@ -97,7 +97,9 @@ public class CategoryController extends HttpServlet {
 			}
 			cateService.insert(category);
 			resp.sendRedirect(req.getContextPath()+"/admin/categories");
-		}else if(url.contains("update")) {
+			
+		} else if(url.contains("update")) {
+			
 			int categoryid = Integer.parseInt(req.getParameter("categoryid"));
 			String categoryname = req.getParameter("categoryname");
 			String status = req.getParameter("status");
@@ -106,28 +108,34 @@ public class CategoryController extends HttpServlet {
 			category.setCategoryid(categoryid);
 			category.setCategoryname(categoryname);
 			category.setStatus(statuss);
-			//luu hinh anh cu
+			
+			//Lưu hình ảnh cũ
 			CategoryModel cateOld = cateService.findById(categoryid);
 			String fileold =cateOld.getImages();
 			
-			//xu li images
+			//Xử lí Images
 			String fname="";
 			String uploadPath= Constant.UPLOAD_DIRECTORY;
 			File uploadDir = new File(uploadPath);
 			if(uploadDir.exists()) {
 				uploadDir.mkdir();
 			}try {
+				
 				Part part = req.getPart("images");
 				if(part.getSize()>0) {
+					
 					String filename=Paths.get(part.getSubmittedFileName()).getFileName().toString();
-					//doi ten file
+					
+					//Đổi tên file
 					int index= filename.lastIndexOf(".");
 					String ext = filename.substring(index+1);
 					fname = System.currentTimeMillis()+"."+ext;
 					part.write(uploadPath+"/"+fname);
+					
 					//ghi ten file vao data
 					category.setImages(fname);
-				}else {
+					
+				} else {
 					category.setImages(fileold);
 				}
 			}catch (Exception e) {
